@@ -5,3 +5,7 @@ Node* left=NULL;
 
 };
 
+void main(){
+    cout << "hello";
+}
+
