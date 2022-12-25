@@ -1,15 +1,32 @@
-int comb(int n,int r,vector<vector<int> >& dp )
+int sol(int n,vector<int> &arr)
     {
-        if(dp[n][r]!=-1)
-            return dp[n][r];
-        if(r==0 || r==n)
+        if(arr[n]!=-1)
+            return arr[n];
+        if(n==1)
+        {
+            arr[n]=1;
             return 1;
-        return dp[n][r]=comb(n-1,r-1,dp)+comb(n-1,r,dp);  
+        }
+            
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {     
+                if(i==1)
+                ans+=sol(n-i,arr);
+            else if(i==n)
+                ans+=sol(i-1,arr);
+            else
+            {
+                ans+=sol(n-i,arr)*sol(i-1,arr);
+            }
+        }
+        arr[n]=ans;
+        return ans;
     }
-    
-    int numTrees(int n) {   
-        vector<vector<int> > dp(2*n+1,vector<int>(2*n+1,-1));
-        return comb(2*n,n,dp)/(n+1);
+    int numTrees(int n) {
         
+        vector<int> arr(n+1, -1);
+        
+        return sol(n,arr);
         
     }
